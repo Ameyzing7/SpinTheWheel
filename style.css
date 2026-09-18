@@ -110,3 +110,25 @@ body::after{
 .metric-head,.warning,.coupon strong,.flower-title{color:#ffffff}
 .coupon p,.flower-sub,.surprise-hint{color:#fff3f8}
 .section h2,.card h2{color:#ffffff;text-shadow:0 3px 14px rgba(88,5,42,.30)}
+
+.sound-toggle{
+  position:fixed;
+  top:max(14px,env(safe-area-inset-top));
+  right:14px;
+  z-index:140;
+  width:44px;
+  height:44px;
+  border-radius:50%;
+  border:1px solid rgba(255,255,255,.34);
+  background:rgba(95,10,49,.62);
+  color:#fff;
+  font-size:1.15rem;
+  box-shadow:0 10px 28px rgba(82,4,41,.28);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  -webkit-tap-highlight-color:transparent;
+}
+.sound-toggle:active{transform:scale(.94)}
