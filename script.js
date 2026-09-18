@@ -22,7 +22,7 @@ function flowerSurprise(){
   overlay.classList.add('active');
   overlay.setAttribute('aria-hidden','false');
   const bouquets=["💐","🌹","🌷","💐","🌸","💐","🌺","🌹"];
-  for(let i=0;i<24;i++){
+  for(let i=0;i<34;i++){
     setTimeout(()=>{
       const b=document.createElement('div');
       b.className='bouquet-pop';
@@ -35,7 +35,7 @@ function flowerSurprise(){
     },i*90);
   }
   const petals=["🌸","🌹","💗","✨"];
-  for(let i=0;i<28;i++){
+  for(let i=0;i<42;i++){
     setTimeout(()=>{
       const p=document.createElement('div');
       p.className='flower-petal';
@@ -47,10 +47,11 @@ function flowerSurprise(){
       setTimeout(()=>p.remove(),6500);
     },i*70);
   }
-  hearts(18);
+  hearts(28);
   if(navigator.vibrate) navigator.vibrate([55,35,55]);
   setTimeout(()=>{
     overlay.classList.remove('active');
     overlay.setAttribute('aria-hidden','true');
   },4700);
 }
+// Bachu birthday theme revision 2
