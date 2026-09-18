@@ -1,19 +1,19 @@
 const intro=document.getElementById('intro'),scan=document.getElementById('scan'),dashboard=document.getElementById('dashboard'),fun=document.getElementById('fun'),toast=document.getElementById('toast');
 function showToast(msg){toast.textContent=msg;toast.classList.add('show');clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>toast.classList.remove('show'),2200)}
 function notBachu(){showToast("Nice try. Girlfriend recognition says you are definitely Bachu 😂");setTimeout(startScan,900)}
-async function startScan(){await withSound(playSalute);intro.classList.add('hidden');scan.classList.remove('hidden');window.scrollTo({top:0,behavior:'smooth'});const messages=["Initializing cuteness detector…","Checking attitude levels…","Measuring main-character energy…","Searching for unnecessary overthinking… FOUND A LOT.","Checking boyfriend tolerance… dangerously low.","Verifying birthday princess status…","Scan complete. Results are ridiculous."];const bar=document.getElementById('loaderBar'),text=document.getElementById('scanText');let i=0;const interval=setInterval(()=>{i++;bar.style.width=Math.min((i/messages.length)*100,100)+"%";text.textContent=messages[Math.min(i,messages.length-1)];if(i>=messages.length){clearInterval(interval);setTimeout(()=>{scan.classList.add('hidden');dashboard.classList.remove('hidden');window.scrollTo({top:0,behavior:'smooth'});confetti(28)},650)}},650)}
+function startScan(){playMediaClip("salute");intro.classList.add('hidden');scan.classList.remove('hidden');window.scrollTo({top:0,behavior:'smooth'});const messages=["Initializing cuteness detector…","Checking attitude levels…","Measuring main-character energy…","Searching for unnecessary overthinking… FOUND A LOT.","Checking boyfriend tolerance… dangerously low.","Verifying birthday princess status…","Scan complete. Results are ridiculous."];const bar=document.getElementById('loaderBar'),text=document.getElementById('scanText');let i=0;const interval=setInterval(()=>{i++;bar.style.width=Math.min((i/messages.length)*100,100)+"%";text.textContent=messages[Math.min(i,messages.length-1)];if(i>=messages.length){clearInterval(interval);setTimeout(()=>{scan.classList.add('hidden');dashboard.classList.remove('hidden');window.scrollTo({top:0,behavior:'smooth'});confetti(28)},650)}},650)}
 function goToFun(){dashboard.classList.add('hidden');fun.classList.remove('hidden');setTimeout(()=>document.getElementById('fun').scrollIntoView({behavior:'smooth'}),50)}
 const noBtn=document.getElementById('noBtn'),box=document.getElementById('yesNoBox');
 function moveNo(){const maxX=Math.max(10,box.clientWidth-noBtn.offsetWidth-18),maxY=Math.max(10,box.clientHeight-noBtn.offsetHeight-18);noBtn.style.left=Math.floor(Math.random()*maxX)+"px";noBtn.style.top=Math.floor(Math.random()*maxY)+"px";noBtn.style.right="auto";noBtn.style.bottom="auto"}
 noBtn.addEventListener('touchstart',e=>{e.preventDefault();moveNo();showToast("Absolutely not. Try again 😌")});noBtn.addEventListener('mouseenter',moveNo);noBtn.addEventListener('click',e=>{e.preventDefault();moveNo();showToast("Website rejected that answer 😂")});
-async function yesLove(){await withSound(playCelebration);showToast("Correct answer detected ❤️");hearts(18)}
+function yesLove(){playMediaClip("celebration");showToast("Correct answer detected ❤️");hearts(18)}
 const reasons=["Your smile ❤️","Your beautiful eyes ✨","The way your face lights up when you’re happy 💖","Your laugh — it’s one of my favorite sounds in the world 🥹","Your voice ❤️","The way you look at me 💕","Your cute little expressions 🥰","The warmth in your heart ❤️","How beautiful you are, inside and out ✨","The way you make me feel loved 💗","Your softness and sweetness 🫶","The comfort I feel when I talk to you ❤️","The little things you do that make me smile 💕","The way you make even ordinary moments feel special ✨","How caring you are ❤️","Your adorable smile when you’re trying not to laugh 🥹","The way I can imagine my whole future with you 💍❤️","The way my heart feels calmer just knowing you’re there 🫶","Every little thing that makes you, you ❤️","Simply because you’re my Bachu 💖"];let lastReason=-1;
 async function newReason(){await withSound(playLoveChime);let idx;do{idx=Math.floor(Math.random()*reasons.length)}while(idx===lastReason&&reasons.length>1);lastReason=idx;const el=document.getElementById('loveReason');el.style.opacity=.25;setTimeout(()=>{el.textContent=reasons[idx];el.style.opacity=1},180)}
 function quizWrong(){showToast("❌ System error: impossible answer. Please reconsider your life choices.")}
 async function quizCorrect(){await withSound(playSuccess);showToast("✅ Correct. Full marks. Scholarship approved.");hearts(10)}
 function rate(n){const t=document.getElementById('ratingText');if(n<5){t.textContent=n+" stars received… correcting obvious technical error → ⭐⭐⭐⭐⭐";showToast("Thank you! Your rating has been automatically upgraded to 5 stars 😂")}else{t.textContent="⭐⭐⭐⭐⭐ Excellent taste. No further questions.";hearts(8)}}
 function redeem(btn){const c=btn.closest('.coupon');c.classList.add('redeemed');btn.textContent="REDEEMED ✅";btn.disabled=true;showToast("Coupon redeemed. Screenshot this and collect from boyfriend 😭")}
-async function secretChaos(){await withSound(playAirHorn);showToast("I KNEW YOU WOULDN'T LISTEN 😂❤️");confetti(70);hearts(35);if(navigator.vibrate)navigator.vibrate([70,40,70])}
+function secretChaos(){playMediaClip("airhorn");showToast("I KNEW YOU WOULDN'T LISTEN 😂❤️");confetti(70);hearts(35);if(navigator.vibrate)navigator.vibrate([70,40,70])}
 async function finalHearts(){await withSound(playRomanticFinale);hearts(42);confetti(34);showToast("Happy Birthday, Bachu ❤️")}
 function hearts(count){const symbols=["❤️","💖","💕","💘","💗","🧿"];for(let i=0;i<count;i++){setTimeout(()=>{const h=document.createElement('div');h.className='float-heart';h.textContent=symbols[Math.floor(Math.random()*symbols.length)];h.style.left=(Math.random()*100)+'vw';h.style.fontSize=(18+Math.random()*24)+'px';h.style.setProperty('--dur',(3+Math.random()*3)+'s');h.style.setProperty('--drift',((Math.random()-.5)*130)+'px');document.body.appendChild(h);setTimeout(()=>h.remove(),6500)},i*70)}}
 function confetti(count){for(let i=0;i<count;i++){setTimeout(()=>{const c=document.createElement('div');c.className='confetti';c.style.left=(Math.random()*100)+'vw';c.style.background='hsl('+Math.random()*360+',90%,70%)';c.style.setProperty('--dur',(2.8+Math.random()*2.8)+'s');document.body.appendChild(c);setTimeout(()=>c.remove(),6000)},i*25)}}
@@ -56,6 +56,123 @@ async function flowerSurprise(){
   },4700);
 }
 // Bachu birthday theme revision 2
+
+
+const mediaClips={};
+
+function wavBlobUrl(samples,sampleRate=12000){
+  const buffer=new ArrayBuffer(44+samples.length*2);
+  const view=new DataView(buffer);
+  const write=(off,str)=>{for(let i=0;i<str.length;i++)view.setUint8(off+i,str.charCodeAt(i));};
+  write(0,"RIFF");
+  view.setUint32(4,36+samples.length*2,true);
+  write(8,"WAVE");
+  write(12,"fmt ");
+  view.setUint32(16,16,true);
+  view.setUint16(20,1,true);
+  view.setUint16(22,1,true);
+  view.setUint32(24,sampleRate,true);
+  view.setUint32(28,sampleRate*2,true);
+  view.setUint16(32,2,true);
+  view.setUint16(34,16,true);
+  write(36,"data");
+  view.setUint32(40,samples.length*2,true);
+  let off=44;
+  for(let i=0;i<samples.length;i++,off+=2){
+    const s=Math.max(-1,Math.min(1,samples[i]));
+    view.setInt16(off,s<0?s*32768:s*32767,true);
+  }
+  return URL.createObjectURL(new Blob([buffer],{type:"audio/wav"}));
+}
+
+function fadeEnv(i,n,attack,release,sr){
+  const a=Math.max(1,Math.floor(attack*sr));
+  const rr=Math.max(1,Math.floor(release*sr));
+  if(i<a)return i/a;
+  if(i>n-rr)return Math.max(0,(n-i)/rr);
+  return 1;
+}
+
+function brassClip(notes,totalDur,sr=12000){
+  const out=new Float32Array(Math.floor(totalDur*sr));
+  notes.forEach(note=>{
+    const start=note[0],freq=note[1],dur=note[2],amp=note[3];
+    const startI=Math.floor(start*sr);
+    const n=Math.floor(dur*sr);
+    for(let j=0;j<n&&startI+j<out.length;j++){
+      const t=j/sr;
+      let v=0,norm=0;
+      for(let k=1;k<=5;k++){
+        v+=(1/k)*Math.sin(2*Math.PI*freq*k*t);
+        norm+=1/k;
+      }
+      v/=norm;
+      out[startI+j]+=v*amp*fadeEnv(j,n,.01,.07,sr);
+    }
+  });
+  return wavBlobUrl(out,sr);
+}
+
+function hornClip(sr=12000){
+  const out=new Float32Array(Math.floor(1.12*sr));
+  [0,.34,.68].forEach((start,idx)=>{
+    const dur=idx===2?.34:.30;
+    const n=Math.floor(dur*sr);
+    const startI=Math.floor(start*sr);
+    for(let j=0;j<n&&startI+j<out.length;j++){
+      const t=j/sr;
+      let v=0,norm=0;
+      for(let k=1;k<=8;k++){
+        v+=(1/k)*Math.sin(2*Math.PI*220*k*t);
+        norm+=1/k;
+      }
+      v/=norm;
+      v+=.38*Math.sin(2*Math.PI*224*t);
+      v/=1.38;
+      out[startI+j]+=v*.72*fadeEnv(j,n,.006,.05,sr);
+    }
+  });
+  return wavBlobUrl(out,sr);
+}
+
+function prepareMediaClips(){
+  if(mediaClips.salute)return;
+  mediaClips.salute=new Audio(brassClip([
+    [0,392,.18,.40],
+    [.12,523.25,.20,.42],
+    [.26,659.25,.22,.44],
+    [.42,783.99,.38,.48]
+  ],.9));
+
+  mediaClips.celebration=new Audio(brassClip([
+    [0,523.25,.18,.40],
+    [.09,659.25,.18,.43],
+    [.18,783.99,.20,.46],
+    [.30,1046.5,.42,.50]
+  ],.95));
+
+  mediaClips.airhorn=new Audio(hornClip());
+
+  Object.values(mediaClips).forEach(a=>{
+    a.preload="auto";
+    a.volume=1;
+  });
+}
+
+function playMediaClip(name){
+  if(!soundEnabled)return;
+  prepareMediaClips();
+  const a=mediaClips[name];
+  if(!a)return;
+  try{
+    a.pause();
+    a.currentTime=0;
+  }catch(e){}
+  const p=a.play();
+  if(p&&p.catch)p.catch(()=>{});
+}
+
+prepareMediaClips();
 
 let soundEnabled=true;
 let audioCtx=null;
