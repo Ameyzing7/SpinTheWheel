@@ -17,3 +17,40 @@ function secretChaos(){showToast("I KNEW YOU WOULDN'T LISTEN 😂❤️");confet
 function finalHearts(){hearts(42);confetti(34);showToast("Happy Birthday, Bachu ❤️")}
 function hearts(count){const symbols=["❤️","💖","💕","💘","💗","🧿"];for(let i=0;i<count;i++){setTimeout(()=>{const h=document.createElement('div');h.className='float-heart';h.textContent=symbols[Math.floor(Math.random()*symbols.length)];h.style.left=(Math.random()*100)+'vw';h.style.fontSize=(18+Math.random()*24)+'px';h.style.setProperty('--dur',(3+Math.random()*3)+'s');h.style.setProperty('--drift',((Math.random()-.5)*130)+'px');document.body.appendChild(h);setTimeout(()=>h.remove(),6500)},i*70)}}
 function confetti(count){for(let i=0;i<count;i++){setTimeout(()=>{const c=document.createElement('div');c.className='confetti';c.style.left=(Math.random()*100)+'vw';c.style.background='hsl('+Math.random()*360+',90%,70%)';c.style.setProperty('--dur',(2.8+Math.random()*2.8)+'s');document.body.appendChild(c);setTimeout(()=>c.remove(),6000)},i*25)}}
+function flowerSurprise(){
+  const overlay=document.getElementById('flowerOverlay');
+  overlay.classList.add('active');
+  overlay.setAttribute('aria-hidden','false');
+  const bouquets=["💐","🌹","🌷","💐","🌸","💐","🌺","🌹"];
+  for(let i=0;i<24;i++){
+    setTimeout(()=>{
+      const b=document.createElement('div');
+      b.className='bouquet-pop';
+      b.textContent=bouquets[Math.floor(Math.random()*bouquets.length)];
+      b.style.left=(Math.random()*92)+'vw';
+      b.style.setProperty('--dur',(3.2+Math.random()*2.2)+'s');
+      b.style.setProperty('--rot',((Math.random()-.5)*26)+'deg');
+      document.body.appendChild(b);
+      setTimeout(()=>b.remove(),6000);
+    },i*90);
+  }
+  const petals=["🌸","🌹","💗","✨"];
+  for(let i=0;i<28;i++){
+    setTimeout(()=>{
+      const p=document.createElement('div');
+      p.className='flower-petal';
+      p.textContent=petals[Math.floor(Math.random()*petals.length)];
+      p.style.left=(Math.random()*100)+'vw';
+      p.style.setProperty('--dur',(3.5+Math.random()*2.4)+'s');
+      p.style.setProperty('--drift',((Math.random()-.5)*150)+'px');
+      document.body.appendChild(p);
+      setTimeout(()=>p.remove(),6500);
+    },i*70);
+  }
+  hearts(18);
+  if(navigator.vibrate) navigator.vibrate([55,35,55]);
+  setTimeout(()=>{
+    overlay.classList.remove('active');
+    overlay.setAttribute('aria-hidden','true');
+  },4700);
+}
