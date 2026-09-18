@@ -2,7 +2,7 @@ const intro=document.getElementById('intro'),scan=document.getElementById('scan'
 function showToast(msg){toast.textContent=msg;toast.classList.add('show');clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>toast.classList.remove('show'),2200)}
 function notBachu(){showToast("Nice try. Girlfriend recognition says you are definitely Bachu 😂");setTimeout(startScan,900)}
 function startScan(){playMediaClip("salute");intro.classList.add('hidden');scan.classList.remove('hidden');window.scrollTo({top:0,behavior:'smooth'});const messages=["Initializing cuteness detector…","Checking attitude levels…","Measuring main-character energy…","Searching for unnecessary overthinking… FOUND A LOT.","Checking boyfriend tolerance… dangerously low.","Verifying birthday princess status…","Scan complete. Results are ridiculous."];const bar=document.getElementById('loaderBar'),text=document.getElementById('scanText');let i=0;const interval=setInterval(()=>{i++;bar.style.width=Math.min((i/messages.length)*100,100)+"%";text.textContent=messages[Math.min(i,messages.length-1)];if(i>=messages.length){clearInterval(interval);setTimeout(()=>{scan.classList.add('hidden');dashboard.classList.remove('hidden');window.scrollTo({top:0,behavior:'smooth'});confetti(28)},650)}},650)}
-function goToFun(){dashboard.classList.add('hidden');fun.classList.remove('hidden');setTimeout(()=>document.getElementById('fun').scrollIntoView({behavior:'smooth'}),50)}
+function goToFun(){dashboard.classList.add('hidden');fun.classList.remove('hidden');setTimeout(()=>{document.getElementById('fun').scrollIntoView({behavior:'smooth'});initScratch();},120)}
 const noBtn=document.getElementById('noBtn'),box=document.getElementById('yesNoBox');
 function moveNo(){const maxX=Math.max(10,box.clientWidth-noBtn.offsetWidth-18),maxY=Math.max(10,box.clientHeight-noBtn.offsetHeight-18);noBtn.style.left=Math.floor(Math.random()*maxX)+"px";noBtn.style.top=Math.floor(Math.random()*maxY)+"px";noBtn.style.right="auto";noBtn.style.bottom="auto"}
 noBtn.addEventListener('touchstart',e=>{e.preventDefault();moveNo();showToast("Absolutely not. Try again 😌")});noBtn.addEventListener('mouseenter',moveNo);noBtn.addEventListener('click',e=>{e.preventDefault();moveNo();showToast("Website rejected that answer 😂")});
@@ -135,6 +135,65 @@ function hornClip(sr=12000){
   return wavBlobUrl(out,sr);
 }
 
+
+function bellClip(sr=12000){
+  const out=new Float32Array(Math.floor(1.6*sr));
+  const strikes=[[0,783.99],[.28,987.77],[.57,1174.66]];
+  strikes.forEach(([start,freq])=>{
+    const startI=Math.floor(start*sr);
+    const n=Math.floor(.9*sr);
+    for(let j=0;j<n&&startI+j<out.length;j++){
+      const t=j/sr;
+      const decay=Math.exp(-4.2*t);
+      const v=(Math.sin(2*Math.PI*freq*t)+.48*Math.sin(2*Math.PI*freq*2.01*t)+.22*Math.sin(2*Math.PI*freq*3.97*t))*decay;
+      out[startI+j]+=v*.22;
+    }
+  });
+  return wavBlobUrl(out,sr);
+}
+
+function heartbeatMediaClip(sr=12000){
+  const out=new Float32Array(Math.floor(2.1*sr));
+  [0,.92].forEach(base=>{
+    [[0,.14],[.19,.11]].forEach(([off,amp])=>{
+      const startI=Math.floor((base+off)*sr);
+      const n=Math.floor(.16*sr);
+      for(let j=0;j<n&&startI+j<out.length;j++){
+        const t=j/sr;
+        const env=Math.exp(-18*t);
+        out[startI+j]+=Math.sin(2*Math.PI*78*t)*env*amp*4.5;
+      }
+    });
+  });
+  return wavBlobUrl(out,sr);
+}
+
+function whooshClip(sr=12000){
+  const out=new Float32Array(Math.floor(.85*sr));
+  let seed=1234567;
+  const rnd=()=>{seed=(seed*16807)%2147483647;return(seed/2147483647)*2-1;};
+  for(let i=0;i<out.length;i++){
+    const t=i/sr;
+    const env=Math.sin(Math.PI*Math.min(1,t/.7))*Math.exp(-1.8*t);
+    out[i]=rnd()*env*.22;
+  }
+  return wavBlobUrl(out,sr);
+}
+
+function sparkleClip(sr=12000){
+  const out=new Float32Array(Math.floor(.9*sr));
+  const notes=[[0,1046.5],[.10,1318.5],[.20,1567.98],[.31,2093]];
+  notes.forEach(([start,freq])=>{
+    const startI=Math.floor(start*sr);
+    const n=Math.floor(.35*sr);
+    for(let j=0;j<n&&startI+j<out.length;j++){
+      const t=j/sr;
+      out[startI+j]+=Math.sin(2*Math.PI*freq*t)*Math.exp(-7*t)*.24;
+    }
+  });
+  return wavBlobUrl(out,sr);
+}
+
 function prepareMediaClips(){
   if(mediaClips.salute)return;
   mediaClips.salute=new Audio(brassClip([
@@ -152,6 +211,10 @@ function prepareMediaClips(){
   ],.95));
 
   mediaClips.airhorn=new Audio(hornClip());
+  mediaClips.bells=new Audio(bellClip());
+  mediaClips.heartbeat=new Audio(heartbeatMediaClip());
+  mediaClips.whoosh=new Audio(whooshClip());
+  mediaClips.sparkle=new Audio(sparkleClip());
 
   Object.values(mediaClips).forEach(a=>{
     a.preload="auto";
@@ -330,3 +393,190 @@ document.addEventListener('click',e=>{
   ) return;
   tone(660,.09,0,'sine',.022);
 });
+
+
+let scratchReady=false;
+let scratchRevealed=false;
+
+function initScratch(){
+  if(scratchReady)return;
+  const canvas=document.getElementById('scratchCanvas');
+  const wrap=document.getElementById('scratchWrap');
+  if(!canvas||!wrap||wrap.clientWidth===0)return;
+  const dpr=Math.max(1,Math.min(2,window.devicePixelRatio||1));
+  canvas.width=Math.floor(wrap.clientWidth*dpr);
+  canvas.height=Math.floor(wrap.clientHeight*dpr);
+  const ctx=canvas.getContext('2d');
+  ctx.scale(dpr,dpr);
+  const grad=ctx.createLinearGradient(0,0,wrap.clientWidth,wrap.clientHeight);
+  grad.addColorStop(0,'#f3c8d7');
+  grad.addColorStop(.45,'#d99bb4');
+  grad.addColorStop(1,'#f8dce7');
+  ctx.fillStyle=grad;
+  ctx.fillRect(0,0,wrap.clientWidth,wrap.clientHeight);
+  ctx.fillStyle='rgba(115,25,64,.82)';
+  ctx.textAlign='center';
+  ctx.font='800 18px -apple-system,BlinkMacSystemFont,Segoe UI,sans-serif';
+  ctx.fillText('Scratch me ❤️',wrap.clientWidth/2,wrap.clientHeight/2);
+  ctx.globalCompositeOperation='destination-out';
+  ctx.lineCap='round';
+  ctx.lineJoin='round';
+  ctx.lineWidth=38;
+
+  let drawing=false;
+  let strokes=0;
+  const point=e=>{
+    const rect=canvas.getBoundingClientRect();
+    return{x:e.clientX-rect.left,y:e.clientY-rect.top};
+  };
+  const begin=e=>{
+    e.preventDefault();
+    drawing=true;
+    const p=point(e);
+    ctx.beginPath();ctx.moveTo(p.x,p.y);
+    playMediaClip('sparkle');
+  };
+  const move=e=>{
+    if(!drawing)return;
+    e.preventDefault();
+    const p=point(e);
+    ctx.lineTo(p.x,p.y);ctx.stroke();
+    strokes++;
+    if(strokes>28&&!scratchRevealed){
+      scratchRevealed=true;
+      canvas.style.transition='opacity .8s ease';
+      canvas.style.opacity='.12';
+      playMediaClip('sparkle');
+      hearts(12);
+      showToast("Secret unlocked ❤️");
+    }
+  };
+  const end=()=>{drawing=false;};
+  canvas.addEventListener('pointerdown',begin);
+  canvas.addEventListener('pointermove',move);
+  window.addEventListener('pointerup',end);
+  scratchReady=true;
+}
+
+let holdTimer=null;
+let holdProgress=0;
+function startHoldHeart(e){
+  if(e)e.preventDefault();
+  if(holdProgress>=100)return;
+  const heart=document.getElementById('holdHeart');
+  heart.classList.add('holding');
+  playMediaClip('heartbeat');
+  clearInterval(holdTimer);
+  holdTimer=setInterval(()=>{
+    holdProgress=Math.min(100,holdProgress+2);
+    updateHoldHeart();
+    if(holdProgress>=100){
+      clearInterval(holdTimer);holdTimer=null;
+      heart.classList.remove('holding');
+      document.getElementById('holdResult').classList.remove('hidden');
+      playMediaClip('celebration');
+      hearts(28);confetti(22);
+      showToast("Love meter overloaded ❤️");
+    }
+  },55);
+}
+function stopHoldHeart(){
+  clearInterval(holdTimer);holdTimer=null;
+  const heart=document.getElementById('holdHeart');
+  if(heart)heart.classList.remove('holding');
+}
+function updateHoldHeart(){
+  const fill=document.getElementById('holdHeartFill');
+  const bar=document.getElementById('holdProgressBar');
+  const pct=document.getElementById('holdPercent');
+  if(fill)fill.style.clipPath='inset('+(100-holdProgress)+'% 0 0 0)';
+  if(bar)bar.style.width=holdProgress+'%';
+  if(pct)pct.textContent=holdProgress+'%';
+}
+
+function signContract(){
+  const paper=document.getElementById('contractPaper');
+  const line=document.getElementById('signatureLine');
+  const btn=document.getElementById('signContractBtn');
+  if(paper.classList.contains('signed')){
+    showToast("Contract already binding for life 😂❤️");
+    return;
+  }
+  paper.classList.add('signed');
+  line.textContent='Signed: Bachu ❤️ Amey — valid forever';
+  btn.textContent='SIGNED FOR LIFE ✅💍';
+  btn.disabled=true;
+  playMediaClip('bells');
+  confetti(55);hearts(30);
+  showToast("Marriage department approves this agreement 💍");
+}
+
+function blowCandles(){
+  const card=document.getElementById('candleCard');
+  const approved=document.getElementById('wishApproved');
+  const btn=document.getElementById('blowCandlesBtn');
+  if(card.classList.contains('wish-made'))return;
+  playMediaClip('whoosh');
+  card.classList.add('wish-made');
+  btn.textContent='Candles blown out ❤️';
+  btn.disabled=true;
+  setTimeout(()=>{
+    approved.classList.remove('hidden');
+    playMediaClip('sparkle');
+    hearts(32);confetti(30);
+    showToast("Wish approved ✅");
+  },650);
+}
+
+let heartbeatStarted=false;
+function startHeartbeatMoment(){
+  const card=document.getElementById('heartbeatCard');
+  const hint=document.getElementById('heartbeatHint');
+  if(heartbeatStarted){
+    playMediaClip('heartbeat');
+    return;
+  }
+  heartbeatStarted=true;
+  card.classList.add('beating');
+  hint.textContent='Listen… ❤️';
+  playMediaClip('heartbeat');
+  setTimeout(()=>playMediaClip('heartbeat'),1800);
+  setTimeout(()=>hearts(14),1300);
+}
+
+let futureLoading=false;
+function startFutureLoading(){
+  if(futureLoading)return;
+  futureLoading=true;
+  const bar=document.getElementById('futureLoaderBar');
+  const status=document.getElementById('futureStatus');
+  const gf=document.getElementById('futureGirlfriend');
+  const fi=document.getElementById('futureFiancee');
+  const wife=document.getElementById('futureWife');
+  const btn=document.getElementById('futureButton');
+  const reveal=document.getElementById('futureReveal');
+  btn.disabled=true;
+  btn.textContent='Loading our future…';
+  playMediaClip('sparkle');
+
+  setTimeout(()=>{bar.style.width='36%';status.textContent='Girlfriend ❤️ — successfully installed';gf.classList.add('active');},250);
+  setTimeout(()=>{bar.style.width='72%';status.textContent='Fiancée 💍 — preparing upgrade…';fi.classList.add('active');playMediaClip('sparkle');},1050);
+  setTimeout(()=>{bar.style.width='96%';status.textContent='Wife 👰 — Loading… 💍';wife.classList.add('active');},1950);
+  setTimeout(()=>{
+    bar.style.width='99%';
+    status.textContent='Loading… 💍';
+    reveal.classList.remove('hidden');
+    playMediaClip('bells');
+    hearts(35);confetti(35);
+    btn.textContent='Forever pending… ❤️';
+  },3000);
+}
+
+const holdHeart=document.getElementById('holdHeart');
+if(holdHeart){
+  holdHeart.addEventListener('pointerdown',startHoldHeart);
+  holdHeart.addEventListener('pointerup',stopHoldHeart);
+  holdHeart.addEventListener('pointercancel',stopHoldHeart);
+  holdHeart.addEventListener('pointerleave',stopHoldHeart);
+}
+window.addEventListener('resize',()=>{if(scratchReady){scratchReady=false;setTimeout(initScratch,120);}});
