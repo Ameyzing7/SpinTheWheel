@@ -98,6 +98,38 @@
         <button class="btn primary" onclick="newReason()">Generate reason ✨</button>
       </section>
 
+
+      <section class="section feature-section" id="scratchSection">
+        <div class="card feature-card center">
+          <div class="eyebrow">A Note Just For You</div>
+          <h2>Scratch to reveal 💌</h2>
+          <p>Use your finger and scratch away the cover.</p>
+          <div class="scratch-wrap" id="scratchWrap">
+            <div class="scratch-note">
+              <div class="scratch-heart">❤️</div>
+              <div class="scratch-message">You’re my forever person ❤️</div>
+            </div>
+            <canvas id="scratchCanvas" aria-label="Scratch to reveal love note"></canvas>
+          </div>
+          <div class="tiny">Keep scratching until the secret is revealed ✨</div>
+        </div>
+      </section>
+
+      <section class="section feature-section">
+        <div class="card feature-card center">
+          <div class="eyebrow">Scientific Love Measurement</div>
+          <h2>Hold my heart ❤️</h2>
+          <p>Press and hold the heart until it reaches 100%.</p>
+          <button class="hold-heart" id="holdHeart" type="button" aria-label="Press and hold heart">
+            <span class="hold-heart-fill" id="holdHeartFill">❤️</span>
+            <span class="hold-heart-base">♡</span>
+          </button>
+          <div class="hold-progress"><i id="holdProgressBar"></i></div>
+          <div class="hold-percent" id="holdPercent">0%</div>
+          <div class="hold-result hidden" id="holdResult">That’s still only 1% of how much I love you. ❤️</div>
+        </div>
+      </section>
+
       <section class="section">
         <div class="eyebrow">Highly Scientific Quiz</div>
         <h2>One question only 🎓</h2>
@@ -129,6 +161,43 @@
         </div>
       </section>
 
+
+      <section class="section feature-section">
+        <div class="card contract-card">
+          <div class="contract-seal">💍</div>
+          <div class="eyebrow center">Extremely Official Document</div>
+          <h2 class="center">Bachu &amp; Amey Lifetime Agreement</h2>
+          <p class="center contract-sub">Legally questionable. Romantically binding. ❤️</p>
+          <div class="contract-paper" id="contractPaper">
+            <div class="contract-clause">🤗 <strong>Clause 01:</strong> Unlimited hugs, with no expiration date.</div>
+            <div class="contract-clause">🏆 <strong>Clause 02:</strong> Bachu wins 87% of arguments. The other 13% are under review.</div>
+            <div class="contract-clause">🍿 <strong>Clause 03:</strong> Mandatory date nights for life.</div>
+            <div class="contract-clause">💋 <strong>Clause 04:</strong> Kisses may be demanded at any time.</div>
+            <div class="contract-clause">💍 <strong>Clause 05:</strong> Both parties agree to annoy each other forever.</div>
+            <div class="signature-line" id="signatureLine">Awaiting Bachu’s signature…</div>
+          </div>
+          <button class="btn primary" id="signContractBtn" onclick="signContract()">Sign Contract 💍</button>
+        </div>
+      </section>
+
+      <section class="section feature-section">
+        <div class="card candle-card center" id="candleCard">
+          <div class="eyebrow">Birthday Wish Department</div>
+          <h2>Make a wish, Bachu 🎂</h2>
+          <p>One birthday wish has been reserved exclusively for you.</p>
+          <div class="cake-scene" id="cakeScene">
+            <div class="candle-row">
+              <span class="candle"><i class="flame"></i></span>
+              <span class="candle"><i class="flame"></i></span>
+              <span class="candle"><i class="flame"></i></span>
+            </div>
+            <div class="cake-emoji">🎂</div>
+          </div>
+          <button class="btn primary" id="blowCandlesBtn" onclick="blowCandles()">Blow the candles 💨</button>
+          <div class="wish-approved hidden" id="wishApproved">Wish approved ✅ ❤️</div>
+        </div>
+      </section>
+
       <section class="section center">
         <div class="card">
           <div class="eyebrow">Very Safe Button</div>
@@ -136,6 +205,38 @@
           <p>Whatever you do, definitely do not touch the button.</p>
           <button class="btn danger" onclick="secretChaos()">DO NOT CLICK 🚨</button>
           <div class="secret" onclick="secretChaos()">…Bachu is 100% going to click it anyway</div>
+        </div>
+      </section>
+
+
+      <section class="section feature-section">
+        <div class="card heartbeat-card center" id="heartbeatCard">
+          <div class="eyebrow">One Last Thing</div>
+          <h2>My heart has something to say.</h2>
+          <button class="heartbeat-button" id="heartbeatButton" type="button" onclick="startHeartbeatMoment()">❤️</button>
+          <p class="heartbeat-hint" id="heartbeatHint">Tap the heart.</p>
+          <div class="heartbeat-message" id="heartbeatMessage">This one’s yours.</div>
+        </div>
+      </section>
+
+      <section class="section feature-section future-wife-section">
+        <div class="card future-card center">
+          <div class="eyebrow">Relationship Software Update</div>
+          <h2>Future Wife Loading… 💍</h2>
+          <div class="future-steps">
+            <div class="future-step active" id="futureGirlfriend">Girlfriend ❤️</div>
+            <div class="future-arrow">→</div>
+            <div class="future-step" id="futureFiancee">Fiancée 💍</div>
+            <div class="future-arrow">→</div>
+            <div class="future-step" id="futureWife">Wife 👰</div>
+          </div>
+          <div class="future-loader"><i id="futureLoaderBar"></i></div>
+          <div class="future-status" id="futureStatus">Ready when you are…</div>
+          <button class="btn primary" id="futureButton" onclick="startFutureLoading()">Start future loading 💍</button>
+          <div class="future-reveal hidden" id="futureReveal">
+            <div class="future-small">SYSTEM MESSAGE:</div>
+            <div class="future-love gradient-text">Can’t wait to marry you ❤️🧿</div>
+          </div>
         </div>
       </section>
 
