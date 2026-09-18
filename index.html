@@ -1,23 +1,140 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Spin the Wheel</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#12091b" />
+  <title>Happy Birthday Bachu ❤️</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container">
-    <h1>Spin the Wheel!</h1>
-    <label for="names">Enter names (comma-separated):</label>
-    <input type="text" id="names" placeholder="e.g., Alice, Bob, Charlie">
-    <button id="spin-btn">Spin</button>
-    <div class="wheel-container">
-      <div id="wheel"></div>
-      <div id="dial"></div> <!-- Dial (arrow) -->
+  <main class="app">
+    <div class="top-note">Official Bachu Birthday Department™</div>
+
+    <section class="screen" id="intro">
+      <div class="card center">
+        <div class="status"><span class="dot"></span> secure girlfriend verification system online</div>
+        <div class="eyebrow">Birthday Access Portal</div>
+        <h1 class="gradient-text">Wait… who are you?</h1>
+        <p>Are you <strong>Bachu</strong>, the dangerously cute girl whose birthday it is?</p>
+        <div class="stack">
+          <button class="btn primary" onclick="startScan()">Yes, obviously 💅</button>
+          <button class="btn secondary" onclick="notBachu()">No 👀</button>
+        </div>
+        <p class="tiny" style="margin:16px 0 0">Protected by Boyfriend Security v14.02 ❤️</p>
+      </div>
+    </section>
+
+    <section class="screen hidden" id="scan">
+      <div class="card">
+        <div class="eyebrow">Scanning Bachu…</div>
+        <h2>Running very serious tests 🧪</h2>
+        <div class="loader-wrap"><div class="loader"><div id="loaderBar"></div></div></div>
+        <div class="scan-text" id="scanText">Initializing cuteness detector…</div>
+        <p class="tiny">Please do not close this page. Excessive beauty may crash the server.</p>
+      </div>
+    </section>
+
+    <section class="screen hidden" id="dashboard">
+      <div class="card">
+        <div class="eyebrow">Scan Complete</div>
+        <h2>Welcome, Bachu ❤️</h2>
+        <p>We found several extremely concerning readings.</p>
+        <div class="metrics">
+          <div class="metric"><div class="metric-head"><span>Beauty</span><strong>100%</strong></div><div class="bar"><i style="width:100%"></i></div></div>
+          <div class="metric"><div class="metric-head"><span>Cuteness</span><strong>1000%</strong></div><div class="bar"><i style="width:100%"></i></div></div>
+          <div class="metric"><div class="metric-head"><span>Drama</span><strong>147%</strong></div><div class="bar"><i style="width:94%"></i></div></div>
+          <div class="metric"><div class="metric-head"><span>Patience with boyfriend</span><strong>2%</strong></div><div class="bar"><i style="width:12%"></i></div></div>
+          <div class="metric"><div class="metric-head"><span>Love for me</span><strong>∞</strong></div><div class="bar"><i style="width:100%"></i></div></div>
+        </div>
+        <div class="warning">⚠️ Warning: Subject may demand birthday gifts, food and unlimited attention.</div>
+        <button class="btn primary" style="margin-top:16px" onclick="goToFun()">Continue investigation →</button>
+      </div>
+    </section>
+
+    <div id="fun" class="hidden">
+      <section class="section">
+        <div class="section-title"><div class="eyebrow">Verified Achievements</div><h2>Bachu’s trophy cabinet 🏆</h2></div>
+        <div class="grid">
+          <div class="achievement"><div class="emoji">🏆</div><div><strong>Professional Overthinker</strong><span class="tiny">Unlocked after thinking about one message for 47 minutes.</span></div></div>
+          <div class="achievement"><div class="emoji">🥇</div><div><strong>Argument Champion</strong><span class="tiny">Record: somehow wins even when the topic changes midway.</span></div></div>
+          <div class="achievement"><div class="emoji">😂</div><div><strong>Survived My Stupid Jokes</strong><span class="tiny">Legendary achievement. Very few make it this far.</span></div></div>
+          <div class="achievement"><div class="emoji">💖</div><div><strong>Still Loves Me</strong><span class="tiny">Scientists are unable to explain this phenomenon.</span></div></div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="eyebrow">Critical Question</div>
+        <h2>Do you love me? 🤨</h2>
+        <p>Choose carefully. This website has feelings.</p>
+        <div class="yesno" id="yesNoBox">
+          <button class="btn primary" id="yesBtn" onclick="yesLove()">YES ❤️</button>
+          <button class="btn danger" id="noBtn">NO 😐</button>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="eyebrow">Advanced AI Technology</div>
+        <h2>Why I love Bachu 💘</h2>
+        <div class="love-box" id="loveReason">Press the button. My extremely expensive AI will reveal the truth.</div>
+        <button class="btn primary" onclick="newReason()">Generate reason ✨</button>
+      </section>
+
+      <section class="section">
+        <div class="eyebrow">Highly Scientific Quiz</div>
+        <h2>One question only 🎓</h2>
+        <p><strong>Who loves Bachu the most?</strong></p>
+        <button class="btn secondary quiz-option" onclick="quizWrong()">A random person</button>
+        <button class="btn secondary quiz-option" onclick="quizCorrect()">Me 😌</button>
+        <button class="btn secondary quiz-option" onclick="quizCorrect()">Obviously me</button>
+        <button class="btn secondary quiz-option" onclick="quizCorrect()">All answers should have been me</button>
+      </section>
+
+      <section class="section">
+        <div class="eyebrow">Boyfriend Rating Department</div>
+        <h2>Rate your boyfriend ⭐</h2>
+        <p>We welcome completely unbiased feedback.</p>
+        <div class="stars">
+          <button onclick="rate(1)">⭐</button><button onclick="rate(2)">⭐</button><button onclick="rate(3)">⭐</button><button onclick="rate(4)">⭐</button><button onclick="rate(5)">⭐</button>
+        </div>
+        <p class="tiny center" id="ratingText">Tap a rating above.</p>
+      </section>
+
+      <section class="section">
+        <div class="eyebrow">Bachu VIP Benefits</div>
+        <h2>Emergency boyfriend coupons 🎟️</h2>
+        <div class="grid">
+          <div class="coupon"><strong>1× Free Apology</strong><p>Valid even if I am technically not wrong. Terms and conditions suspiciously unavailable.</p><button class="btn secondary" onclick="redeem(this)">Redeem</button></div>
+          <div class="coupon"><strong>1× Movie of Your Choice</strong><p>I agree not to complain about the movie for at least the first 17 minutes.</p><button class="btn secondary" onclick="redeem(this)">Redeem</button></div>
+          <div class="coupon"><strong>1× Unlimited Rant Session</strong><p>Includes active listening, supportive nodding and strategically timed “exactly!” responses.</p><button class="btn secondary" onclick="redeem(this)">Redeem</button></div>
+          <div class="coupon"><strong>1× Argument Victory</strong><p>No evidence required. No appeal process. Decision is final.</p><button class="btn secondary" onclick="redeem(this)">Redeem</button></div>
+        </div>
+      </section>
+
+      <section class="section center">
+        <div class="card">
+          <div class="eyebrow">Very Safe Button</div>
+          <h2>Nothing suspicious here.</h2>
+          <p>Whatever you do, definitely do not touch the button.</p>
+          <button class="btn danger" onclick="secretChaos()">DO NOT CLICK 🚨</button>
+          <div class="secret" onclick="secretChaos()">…Bachu is 100% going to click it anyway</div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="card final">
+          <div class="big-heart">❤️</div>
+          <div class="eyebrow">Okay, jokes aside</div>
+          <h2>Happy Birthday, Bachu.</h2>
+          <p>You’re my favorite person, my favorite notification, and somehow still the person willing to put up with me.</p>
+          <div class="final-message gradient-text">Can’t wait to marry you ❤️🧿</div>
+          <p class="tiny">— Your permanently subscribed boyfriend 💌</p>
+          <button class="btn primary" onclick="finalHearts()">Tap for extra love ❤️</button>
+        </div>
+      </section>
     </div>
-    <div id="result"></div>
-  </div>
+  </main>
+  <div class="toast" id="toast"></div>
   <script src="script.js"></script>
 </body>
 </html>
