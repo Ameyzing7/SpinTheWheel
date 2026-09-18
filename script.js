@@ -1,7 +1,58 @@
 const intro=document.getElementById('intro'),scan=document.getElementById('scan'),dashboard=document.getElementById('dashboard'),fun=document.getElementById('fun'),toast=document.getElementById('toast');
 function showToast(msg){toast.textContent=msg;toast.classList.add('show');clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>toast.classList.remove('show'),2200)}
 function notBachu(){showToast("Nice try. Girlfriend recognition says you are definitely Bachu 😂");setTimeout(startScan,900)}
-function startScan(){playMediaClip("salute");intro.classList.add('hidden');scan.classList.remove('hidden');window.scrollTo({top:0,behavior:'smooth'});const messages=["Initializing cuteness detector…","Checking attitude levels…","Measuring main-character energy…","Searching for unnecessary overthinking… FOUND A LOT.","Checking boyfriend tolerance… dangerously low.","Verifying birthday princess status…","Scan complete. Results are ridiculous."];const bar=document.getElementById('loaderBar'),text=document.getElementById('scanText');let i=0;const interval=setInterval(()=>{i++;bar.style.width=Math.min((i/messages.length)*100,100)+"%";text.textContent=messages[Math.min(i,messages.length-1)];if(i>=messages.length){clearInterval(interval);setTimeout(()=>{scan.classList.add('hidden');dashboard.classList.remove('hidden');window.scrollTo({top:0,behavior:'smooth'});confetti(28)},650)}},650)}
+function startScan(){
+  playMediaClip("salute");
+  intro.classList.add('hidden');
+  scan.classList.remove('hidden');
+  window.scrollTo({top:0,behavior:'smooth'});
+
+  const messages=[
+    "Initializing Bachu Recognition System… ❤️",
+    "Scanning smile levels… dangerously adorable.",
+    "Checking beautiful eyes… confirmed ✨",
+    "Measuring main-character energy… off the charts.",
+    "Analyzing cuteness… system limit exceeded 💖",
+    "Searching for unnecessary overthinking… FOUND A LOT 😂",
+    "Checking patience with boyfriend… approximately 2%.",
+    "Verifying birthday princess status… 100% confirmed 👑",
+    "Running future-wife compatibility test… 💍",
+    "Finalizing results… please remain extremely cute.",
+    "Scan complete. Results are ridiculous. ❤️"
+  ];
+
+  const bar=document.getElementById('loaderBar');
+  const text=document.getElementById('scanText');
+  const totalDuration=16000;
+  const stepDuration=totalDuration/messages.length;
+  let i=0;
+
+  text.textContent=messages[0];
+  bar.style.width="7%";
+
+  const interval=setInterval(()=>{
+    i++;
+    const progress=Math.min(((i+1)/messages.length)*100,100);
+    bar.style.width=progress+"%";
+
+    if(i<messages.length){
+      text.classList.remove('scan-pop');
+      void text.offsetWidth;
+      text.textContent=messages[i];
+      text.classList.add('scan-pop');
+    }
+
+    if(i>=messages.length-1){
+      clearInterval(interval);
+      setTimeout(()=>{
+        scan.classList.add('hidden');
+        dashboard.classList.remove('hidden');
+        window.scrollTo({top:0,behavior:'smooth'});
+        confetti(28);
+      },stepDuration);
+    }
+  },stepDuration);
+}
 function goToFun(){dashboard.classList.add('hidden');fun.classList.remove('hidden');setTimeout(()=>{document.getElementById('fun').scrollIntoView({behavior:'smooth'});initScratch();},120)}
 const noBtn=document.getElementById('noBtn'),box=document.getElementById('yesNoBox');
 function moveNo(){const maxX=Math.max(10,box.clientWidth-noBtn.offsetWidth-18),maxY=Math.max(10,box.clientHeight-noBtn.offsetHeight-18);noBtn.style.left=Math.floor(Math.random()*maxX)+"px";noBtn.style.top=Math.floor(Math.random()*maxY)+"px";noBtn.style.right="auto";noBtn.style.bottom="auto"}
