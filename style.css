@@ -1,6 +1,14 @@
 :root{--bg:#0f0717;--bg2:#1a0d26;--card:rgba(255,255,255,.08);--card2:rgba(255,255,255,.12);--text:#fff7fb;--muted:#d8c8dc;--pink:#ff6fae;--pink2:#ff95c5;--purple:#b885ff;--gold:#ffd978;--danger:#ff6b81;--good:#71f3b5;--shadow:0 18px 60px rgba(0,0,0,.35)}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-height:100vh;font-family:Inter,ui-rounded,"SF Pro Rounded",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--text);background:radial-gradient(circle at 10% 10%,rgba(255,111,174,.18),transparent 28%),radial-gradient(circle at 90% 20%,rgba(184,133,255,.18),transparent 30%),linear-gradient(180deg,var(--bg),var(--bg2) 50%,#0b0611);overflow-x:hidden}
-body::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.18;background-image:radial-gradient(rgba(255,255,255,.8) 1px,transparent 1px);background-size:28px 28px;mask-image:linear-gradient(to bottom,black,transparent 75%);z-index:0}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-height:100vh;font-family:Inter,ui-rounded,"SF Pro Rounded",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--text);background:
+radial-gradient(circle at 14% 8%,rgba(255,105,155,.30),transparent 25%),
+radial-gradient(circle at 88% 18%,rgba(255,184,203,.20),transparent 24%),
+radial-gradient(circle at 52% 62%,rgba(184,133,255,.14),transparent 35%),
+linear-gradient(180deg,#220916 0%,#311126 38%,#1b0b22 72%,#0d0712 100%);overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.16;background-image:radial-gradient(rgba(255,255,255,.9) 1px,transparent 1px);background-size:28px 28px;mask-image:linear-gradient(to bottom,black,transparent 85%);z-index:0}
+.romance-bg{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+.romance-bg span{position:absolute;color:rgba(255,190,214,.16);font-size:clamp(20px,6vw,42px);filter:drop-shadow(0 0 12px rgba(255,111,174,.15));animation:romanceFloat 9s ease-in-out infinite}
+.romance-bg span:nth-child(1){left:5%;top:8%}.romance-bg span:nth-child(2){right:6%;top:11%;animation-delay:-2s}.romance-bg span:nth-child(3){left:12%;top:28%;animation-delay:-5s}.romance-bg span:nth-child(4){right:14%;top:34%;animation-delay:-1s}.romance-bg span:nth-child(5){left:46%;top:19%;animation-delay:-7s}.romance-bg span:nth-child(6){left:7%;top:52%;animation-delay:-3s}.romance-bg span:nth-child(7){right:8%;top:58%;animation-delay:-6s}.romance-bg span:nth-child(8){left:38%;top:47%;animation-delay:-1.5s}.romance-bg span:nth-child(9){right:38%;top:69%;animation-delay:-4s}.romance-bg span:nth-child(10){left:13%;top:79%;animation-delay:-8s}.romance-bg span:nth-child(11){right:11%;top:86%;animation-delay:-2.5s}.romance-bg span:nth-child(12){left:46%;top:91%;animation-delay:-5.5s}.romance-bg span:nth-child(13){right:43%;top:5%;animation-delay:-3.5s}.romance-bg span:nth-child(14){left:27%;top:66%;animation-delay:-6.5s}.romance-bg span:nth-child(15){right:24%;top:44%;animation-delay:-4.5s}
+@keyframes romanceFloat{0%,100%{transform:translateY(0) rotate(-5deg) scale(1)}50%{transform:translateY(-16px) rotate(7deg) scale(1.08)}}
 .app{position:relative;z-index:1;width:min(100%,520px);margin:0 auto;padding:18px 16px 80px}.screen{min-height:calc(100dvh - 36px);display:flex;flex-direction:column;justify-content:center;padding:18px 0}
 .card{background:linear-gradient(180deg,rgba(255,255,255,.11),rgba(255,255,255,.06));border:1px solid rgba(255,255,255,.14);border-radius:28px;padding:24px;box-shadow:var(--shadow);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
 .eyebrow{text-transform:uppercase;letter-spacing:.18em;font-size:.72rem;color:var(--pink2);font-weight:800}h1,h2,h3,p{margin-top:0}h1{font-size:clamp(2.4rem,11vw,4.2rem);line-height:.95;margin-bottom:14px}h2{font-size:clamp(1.8rem,8vw,2.6rem);line-height:1.05}p{color:var(--muted);line-height:1.55}
@@ -19,3 +27,21 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.18;b
 .final{text-align:center;padding:42px 22px;background:radial-gradient(circle at 50% 0%,rgba(255,111,174,.22),transparent 45%),linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.04))}.final .big-heart{font-size:4.8rem;animation:pulse 1.5s infinite}.final-message{font-size:clamp(2rem,9vw,3.2rem);font-weight:900;line-height:1.08;margin:16px 0}
 @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}.float-heart{position:fixed;bottom:-30px;pointer-events:none;z-index:50;animation:floatUp var(--dur) linear forwards;opacity:.92}@keyframes floatUp{to{transform:translateY(-115vh) translateX(var(--drift)) rotate(25deg);opacity:0}}.confetti{position:fixed;top:-12px;width:9px;height:14px;border-radius:3px;z-index:60;pointer-events:none;animation:fall var(--dur) linear forwards}@keyframes fall{to{transform:translateY(110vh) rotate(720deg);opacity:.8}}.top-note{text-align:center;font-size:.75rem;color:#ae9bb4;padding-top:8px}
 @media(max-width:360px){.card{padding:20px;border-radius:24px}.btn{font-size:.95rem}#yesBtn,#noBtn{min-width:104px}}
+/* Romantic surprise */
+.surprise-card{position:relative;overflow:hidden;background:radial-gradient(circle at 50% 0%,rgba(255,157,194,.25),transparent 45%),linear-gradient(150deg,rgba(255,255,255,.12),rgba(255,111,174,.08));border-color:rgba(255,180,210,.22)}
+.surprise-card::before,.surprise-card::after{content:"♡";position:absolute;font-size:5rem;color:rgba(255,255,255,.055);font-weight:900}
+.surprise-card::before{left:-12px;top:-22px;transform:rotate(-18deg)}.surprise-card::after{right:-10px;bottom:-34px;transform:rotate(18deg)}
+.surprise-icon{font-size:3.5rem;margin:8px 0 10px;animation:surpriseBounce 1.8s ease-in-out infinite}
+.surprise-btn{position:relative;z-index:1}
+@keyframes surpriseBounce{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-8px) rotate(4deg)}}
+.flower-overlay{position:fixed;inset:0;z-index:100;pointer-events:none;display:flex;align-items:center;justify-content:center;background:rgba(28,5,18,0);transition:background .35s ease}
+.flower-overlay.active{background:rgba(28,5,18,.42)}
+.flower-message{position:relative;z-index:120;text-align:center;padding:22px 24px;border-radius:26px;background:rgba(35,10,29,.88);border:1px solid rgba(255,203,220,.35);box-shadow:0 24px 80px rgba(0,0,0,.5);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);opacity:0;transform:scale(.72) translateY(20px);transition:.42s cubic-bezier(.2,.9,.2,1)}
+.flower-overlay.active .flower-message{opacity:1;transform:scale(1) translateY(0)}
+.flower-main{font-size:4.8rem;filter:drop-shadow(0 12px 22px rgba(255,111,174,.35));animation:flowerPulse 1.3s ease-in-out infinite}
+.flower-title{font-size:1.35rem;font-weight:900;margin-top:4px}.flower-sub{font-size:.88rem;color:#ead5e2;margin-top:7px;max-width:270px}
+.bouquet-pop{position:fixed;z-index:115;pointer-events:none;bottom:-110px;font-size:clamp(42px,13vw,78px);filter:drop-shadow(0 14px 16px rgba(0,0,0,.28));animation:bouquetRise var(--dur) cubic-bezier(.16,.75,.24,1) forwards}
+.flower-petal{position:fixed;z-index:114;pointer-events:none;top:-30px;font-size:22px;animation:petalFall var(--dur) linear forwards}
+@keyframes flowerPulse{0%,100%{transform:scale(1) rotate(-2deg)}50%{transform:scale(1.09) rotate(2deg)}}
+@keyframes bouquetRise{0%{transform:translateY(0) scale(.6) rotate(var(--rot));opacity:0}18%{opacity:1}72%{opacity:1}100%{transform:translateY(-115vh) scale(1.08) rotate(calc(var(--rot) * -1));opacity:0}}
+@keyframes petalFall{0%{transform:translateY(-20px) rotate(0deg);opacity:0}12%{opacity:1}100%{transform:translateY(110vh) translateX(var(--drift)) rotate(620deg);opacity:.1}}
